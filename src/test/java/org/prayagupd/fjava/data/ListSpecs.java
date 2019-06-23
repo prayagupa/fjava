@@ -16,4 +16,14 @@ public class ListSpecs {
 
         data.show();
     }
+
+    @Test
+    public void fmap() {
+        var data = List(1, 2, 3, 4)
+                .map(a -> a * 2)
+                .map(b -> b * 3)
+                .fmap(c -> List(c * 4));
+
+        data.show();
+    }
 }
