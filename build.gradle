@@ -6,6 +6,7 @@ group 'org.prayagupd.fjava'
 version '1.0-SNAPSHOT'
 
 sourceCompatibility = 12
+targetCompatibility = 12
 
 repositories {
     mavenCentral()

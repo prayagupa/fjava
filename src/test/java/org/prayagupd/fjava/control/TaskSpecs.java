@@ -1,3 +1,7 @@
+package org.prayagupd.fjava.control;
+
+import org.junit.Assert;
+import org.junit.Test;
 import org.prayagupd.fjava.control.Task;
 
 import java.util.concurrent.ExecutionException;
@@ -5,7 +9,8 @@ import java.util.function.Function;
 
 public class TaskSpecs {
 
-    public static void main(String[] args) throws ExecutionException, InterruptedException {
+    @Test
+    public void asyncTask() throws ExecutionException, InterruptedException {
 
         Function<Integer, Integer> ff = a -> a * 2;
 
@@ -24,6 +29,8 @@ public class TaskSpecs {
                 .fmap(data -> new Task<Integer>(() -> data * 3));
 
         System.out.println(task2.unsafeRunSync());
+
+        Assert.assertEquals(task2.unsafeRunSync(), new Integer(12));
     }
 
 }
