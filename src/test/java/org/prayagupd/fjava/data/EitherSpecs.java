@@ -7,7 +7,7 @@ import org.prayagupd.fjava.data.Either.Right;
 import java.util.Optional;
 
 import static org.prayagupd.fjava.data.EitherSpecs.Error.Error;
-import static org.prayagupd.fjava.data.Unit.Unit;
+import static org.prayagupd.fjava.data.Void.Void;
 
 public class EitherSpecs {
 
@@ -63,10 +63,10 @@ public class EitherSpecs {
         addTax.either(
                 l -> {
                     System.out.println(l);
-                    return Unit();
+                    return Void();
                 },
                 r -> {
-                    return Unit();
+                    return Void();
                 }
         );
     }

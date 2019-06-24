@@ -25,7 +25,7 @@ public abstract class Either<L, R> {
 
     public abstract <R1> Either<L, R1> map(Function<R, R1> f);
 
-    public static class Left<L, R> extends Either<L, R> {
+    public final static class Left<L, R> extends Either<L, R> {
         private L l;
 
         public Left(L l) {
@@ -53,7 +53,7 @@ public abstract class Either<L, R> {
         }
     }
 
-    public static class Right<L, R> extends Either<L, R> {
+    public final static class Right<L, R> extends Either<L, R> {
         private R r;
 
         public Right(R r) {
