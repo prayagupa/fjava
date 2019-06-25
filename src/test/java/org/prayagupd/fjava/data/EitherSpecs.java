@@ -70,4 +70,13 @@ public class EitherSpecs {
                 }
         );
     }
+
+    @Test
+    public void fmap() {
+        var data = new Right<>(100)
+                .map(a -> a * 2 )
+                .fmap(a -> new Right<>(a * 3.0));
+
+        System.out.println(data);
+    }
 }

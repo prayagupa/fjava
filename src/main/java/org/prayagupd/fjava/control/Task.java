@@ -13,32 +13,40 @@ import java.util.function.Supplier;
  */
 public class Task<A> {
 
-    private CompletableFuture<A> future;
+    private CompletableFuture<A> promise;
 
     private Task(CompletableFuture<A> f) {
-        future = f;
+        promise = f;
     }
 
     public Task(Supplier<A> a) {
-        future = CompletableFuture.supplyAsync(a);
+        promise = CompletableFuture.supplyAsync(a);
     }
 
     public Task<A> unit(A a) {
-        future = CompletableFuture.completedFuture(a);
+        promise = CompletableFuture.completedFuture(a);
         return this;
     }
 
     public <B> Task<B> map(Function<A, B> fn) {
-        CompletableFuture<B> bCompletableFuture = future.thenApplyAsync(fn);
+        CompletableFuture<B> bCompletableFuture = promise.thenApplyAsync(fn);
         return new Task<B>(bCompletableFuture);
     }
 
-    public Task<A> fmap(Function<A, Task<A>> taskFn) {
-        var r = future.thenCompose(v -> taskFn.apply(v).future);
-        return new Task<A>(r);
+    public <B> Task<B> fmap(Function<A, Task<B>> taskFn) {
+        return new Task<B>(promise.thenCompose(c -> taskFn.apply(c).promise));
     }
 
-    public A unsafeRunSync() throws ExecutionException, InterruptedException {
-        return future.get();
+    public CompletableFuture<A> promise() {
+        return promise;
+    }
+
+    public A unsafeRunSync() {
+        try {
+            return promise.get();
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
     }
 }

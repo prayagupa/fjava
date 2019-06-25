@@ -35,16 +35,16 @@ public class List<A> implements Iterable<A> {
         return new List<B>(mutAccumulator);
     }
 
-    public List<A> fmap(Function<A, List<A>> fn) {
-        java.util.List<A> mutAccumulator = new ArrayList<>();
+    public <B> List<B> fmap(Function<A, List<B>> fn) {
+        java.util.List<B> mutAccumulator = new ArrayList<>();
 
         for (A a: list) {
-            for (A a1: fn.apply(a)) {
+            for (B a1: fn.apply(a)) {
                 mutAccumulator.add(a1);
             }
         }
 
-        return new List<A>(mutAccumulator);
+        return new List<B>(mutAccumulator);
     }
 
     public void show() {

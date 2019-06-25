@@ -24,6 +24,7 @@ public abstract class Either<L, R> {
     public abstract <R1> R1 either(Function<L, R1> lf, Function<R, R1> rf);
 
     public abstract <R1> Either<L, R1> map(Function<R, R1> f);
+    public abstract <R1> Either<L, R1> fmap(Function<R, Either<L, R1>> f);
 
     public final static class Left<L, R> extends Either<L, R> {
         private L l;
@@ -35,6 +36,11 @@ public abstract class Either<L, R> {
         @Override
         public <R1> Either<L, R1> map(Function<R, R1> f) {
             return new Left<L, R1>(l);
+        }
+
+        @Override
+        public <R1> Either<L, R1> fmap(Function<R, Either<L, R1>> f) {
+            return new Left<>(l);
         }
 
         @Override
@@ -51,6 +57,11 @@ public abstract class Either<L, R> {
         public <R1> R1 either(Function<L, R1> lf, Function<R, R1> rf) {
             return lf.apply(l);
         }
+
+        @Override
+        public String toString() {
+            return "Left(" + l + ")";
+        }
     }
 
     public final static class Right<L, R> extends Either<L, R> {
@@ -66,6 +77,11 @@ public abstract class Either<L, R> {
         }
 
         @Override
+        public <R1> Either<L, R1> fmap(Function<R, Either<L, R1>> f) {
+            return f.apply(r);
+        }
+
+        @Override
         public Boolean isLeft() {
             return false;
         }
@@ -78,6 +94,11 @@ public abstract class Either<L, R> {
         @Override
         public <R1> R1 either(Function<L, R1> lf, Function<R, R1> rf) {
             return rf.apply(r);
+        }
+
+        @Override
+        public String toString() {
+            return "Right(" + r + ")";
         }
     }
 

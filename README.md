@@ -10,8 +10,26 @@ data types
 - `Monoid` - TODO
 - `Maybe<A>`
 - `Either<L, R>`
+```java
+var data = new Right<>(100)
+        .map(a -> a * 2 )
+        .fmap(a -> new Right<>(a * 3.0));
+```
 - `List<A>`
+```java
+var data = List(1, 2, 3, 4)
+        .map(a -> a * 2)
+        .fmap(c -> List(c * 4));
+```
 - `Tuple<A, B>` - TODO
 - `Void`
 
+- `Task<A>`
+
+```java
+
+var task2 = new Task<Integer>(() -> 2)
+        .map(data -> data * 2)
+        .fmap(data -> new Task<Integer>(() -> data * 3));
+```
 reference - http://hackage.haskell.org/package/base-4.12.0.0
