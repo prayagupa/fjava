@@ -26,4 +26,13 @@ public class ListSpecs {
 
         data.show();
     }
+
+    @Test
+    public void append(){
+        var data = List(1, 2, 3, 4);
+        var newData = data.append(100).append(200);
+
+        System.out.println(data);
+        System.out.println(newData);
+    }
 }
