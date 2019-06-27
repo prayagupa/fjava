@@ -16,10 +16,7 @@ public class List<A> implements Iterable<A> {
     private java.util.List<A> list = new ArrayList<>();
 
     public List(A ... list) {
-        A[] as = list;
-        for(A aa: as) {
-            this.list.add(aa);
-        }
+        this.list = Arrays.asList(list);
     }
 
     public static <C> List<C> List(C ... args) {
