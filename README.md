@@ -38,4 +38,5 @@ var asyncTask = new Task<Integer>(() -> 2)
         .map(data -> data * 2)
         .fmap(data -> new Task<Double>(() -> data * 3.0));
 ```
+
 reference - http://hackage.haskell.org/package/base-4.12.0.0
